@@ -44,8 +44,8 @@ spec:
             - containerPort: 9988
           volumeMounts:
             - name: feedi-config-volume
-              mountPath: /var/www/feedi/feedi/settings.py
-              subPath: settings.py
+              mountPath: /app/feedi/config/default.py
+              subPath: default.py
           resources:
             requests:
               cpu: 100m
@@ -55,7 +55,7 @@ spec:
           configMap:
             name: feedi-nginx
         - name: feedi-config-volume
-          secret:
-            secretName: django-settings
+          configMap:
+            name: feedi-config
         - name: static-volume
           emptyDir: {}

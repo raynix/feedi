@@ -11,3 +11,6 @@ configMapGenerator:
   - name: feedi-nginx
     files:
       - nginx-feedi.conf
+  - name: feedi-config
+    files:
+      - default.py
