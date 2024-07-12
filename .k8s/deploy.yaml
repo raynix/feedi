@@ -17,7 +17,7 @@ spec:
         - name: feedi-static
           image: ghcr.io/raynix/feedi:v0.0.2
           command:
-            - bash
+            - sh
             - -c
             - |
               cp -r /app/feedi/static/* /var/www/feedi/static
