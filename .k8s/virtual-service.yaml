@@ -1,0 +1,13 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: feedi-vs
+spec:
+  gateways:
+  - feedi-gateway
+  hosts:
+  - feedi.awes.one
+  http:
+  - route:
+    - destination:
+        host: feedi

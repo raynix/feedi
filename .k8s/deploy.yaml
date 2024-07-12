@@ -1,0 +1,61 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: feedi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: feedi
+  template:
+    metadata:
+      labels:
+        app: feedi
+    spec:
+      initContainers:
+        - name: feedi-static
+          image: ghcr.io/raynix/feedi:v0.0.2
+          command:
+            - bash
+            - -c
+            - |
+              cp -r /app/feedi/static/* /var/www/feedi/static
+          volumeMounts:
+            - name: static-volume
+              mountPath: /var/www/feedi/static
+      containers:
+        - name: nginx
+          image: nginx
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: nginx-config-volume
+              mountPath: /etc/nginx/conf.d
+            - name: static-volume
+              mountPath: /var/www/feedi/static
+          resources:
+            requests:
+              cpu: 50m
+              memory: 50Mi
+        - name: feedi-gunicorn
+          image: ghcr.io/raynix/feedi:v0.0.2
+          ports:
+            - containerPort: 9988
+          volumeMounts:
+            - name: feedi-config-volume
+              mountPath: /var/www/feedi/feedi/settings.py
+              subPath: settings.py
+          resources:
+            requests:
+              cpu: 100m
+              memory: 200Mi
+      volumes:
+        - name: nginx-config-volume
+          configMap:
+            name: feedi-nginx
+        - name: feedi-config-volume
+          secret:
+            secretName: django-settings
+        - name: static-volume
+          emptyDir: {}
