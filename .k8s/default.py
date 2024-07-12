@@ -1,4 +1,6 @@
-SQLALCHEMY_DATABASE_URI = "sqlite:///feedi.db"
+import os
+
+SQLALCHEMY_DATABASE_URI = f"mysql://{os.environ['DB_USER']}:{os.environ['DB_PASSWORD']}@{os.environ['DB_HOST']}/{os.environ['DB_SCHEMA']}"
 
 ENTRY_PAGE_SIZE = 10
 
@@ -19,4 +21,4 @@ HUEY_POOL_SIZE = 100
 # username to use internally when authentication is "disabled"
 # this user will be inserted automatically when first creating the DB
 # and auto-logged-in when a browser first sends a request to the app.
-DEFAULT_AUTH_USER = 'admin@admin.com'
+#DEFAULT_AUTH_USER = 'admin@admin.com'

@@ -40,6 +40,9 @@ spec:
               memory: 50Mi
         - name: feedi-gunicorn
           image: ghcr.io/raynix/feedi:v0.0.2
+          envFrom:
+            - secretRef:
+                name: feedi
           ports:
             - containerPort: 9988
           volumeMounts:
