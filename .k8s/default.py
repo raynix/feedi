@@ -1,6 +1,6 @@
 import os
 
-SQLALCHEMY_DATABASE_URI = f"mysql://{os.environ['DB_USER']}:{os.environ['DB_PASSWORD']}@{os.environ['DB_HOST']}/{os.environ['DB_SCHEMA']}"
+SQLALCHEMY_DATABASE_URI = f"mysql+pymysql://{os.environ['DB_USER']}:{os.environ['DB_PASSWORD']}@{os.environ['DB_HOST']}/{os.environ['DB_SCHEMA']}"
 
 ENTRY_PAGE_SIZE = 10
 
