@@ -14,3 +14,7 @@ configMapGenerator:
   - name: feedi-config
     files:
       - default.py
+
+images:
+  - name: ghcr.io/raynix/feedi
+    newTag: v0.0.3
